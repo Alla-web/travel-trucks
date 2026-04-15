@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import css from "./HeroSection.module.css";
 
 export default function HeroSection() {
@@ -11,7 +12,9 @@ export default function HeroSection() {
           <h2 className={css.subTitile}>
             You can find everything you want in our catalog
           </h2>
-          <button className={css.viewNowBtn}>View Now</button>
+          <Link href="/catalog" className={css.viewNowBtn}>
+            View Now
+          </Link>
         </section>
       </div>
     </div>
