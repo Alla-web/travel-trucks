@@ -1,1 +1,31 @@
- 
+.header {
+  background-color: var(--header-background);
+  width: 100%;
+  min-height: 72px;
+}
+
+.headerInnerContainer {
+  padding-top: 28px;
+  padding-bottom: 28px;
+  display: flex;
+}
+
+.logoIcon {
+  display: block;
+  width: 136px;
+  height: 17px;
+  margin-right: 450px;
+}
+
+.headerNav {
+  display: flex;
+  gap: 32px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+}
+
+.isActive {
+  color: var(--active-page-color);
+}
