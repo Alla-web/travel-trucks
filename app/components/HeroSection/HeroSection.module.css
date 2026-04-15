@@ -1,0 +1,43 @@
+.sectionContainer {
+  min-height: 696px;
+  background-image: image-set(
+    url("/hero/hero-iamge-1x.webp") 1x,
+    url("/hero/hero-image-2x.webp") 2x
+  );
+}
+
+.heroSectionInner {
+  padding-top: 260px;
+  padding-bottom: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  color: #f7f7f7;
+}
+
+.mainTitle {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 67%;
+
+  margin-bottom: 16px;
+}
+
+.subTitile {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+
+  margin-bottom: 40px;
+}
+
+.viewNowBtn {
+  background-color: var(--buttons-background);
+  color: #f7f7f7;
+  border-radius: 200px;
+  padding: 16px 60px;
+  width: fit-content;
+  height: 56px;
+}
