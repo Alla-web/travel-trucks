@@ -12,6 +12,11 @@ interface TravelTruckCardProps {
 }
 
 export default function TravelTruckCard({ travelTruck }: TravelTruckCardProps) {
+  function capitalizer(word: string) {
+    if (!word) return;
+    return word[0].toUpperCase() + word.slice(1);
+  }
+
   return (
     <div className={css.cardContainer}>
       <div className={css.imageConatiner}>
@@ -59,13 +64,13 @@ export default function TravelTruckCard({ travelTruck }: TravelTruckCardProps) {
             <svg className={css.optionsIccons}>
               <use href="/iconsprite.svg#diagram" />
             </svg>
-            <p>{travelTruck.transmission}</p>
+            <p>{capitalizer(travelTruck.transmission)}</p>
           </li>
           <li className={css.optionItem}>
             <svg className={css.optionsIccons}>
               <use href="/iconsprite.svg#fuel-pump" />
             </svg>
-            <p>{travelTruck.engine}</p>
+            <p>{capitalizer(travelTruck.engine)}</p>
           </li>
           {travelTruck.kitchen && (
             <li className={css.optionItem}>
