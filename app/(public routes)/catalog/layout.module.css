@@ -1,0 +1,19 @@
+.sectionContainer {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.sidebarContainer {
+  background-color: rgb(191, 197, 202);
+
+  width: 552px;
+  height: 100vh;
+}
+
+.travelTrucksContainer {
+  margin-top: 48px;
+  margin-bottom: 48px;
+  margin-left: 64px;
+  max-width: 888px;
+}

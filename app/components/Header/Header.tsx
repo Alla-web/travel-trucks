@@ -14,7 +14,7 @@ export default function Header() {
         <div className={css.headerInnerContainer}>
           <Link href="/">
             <svg className={css.logoIcon}>
-              <use href="iconsprite.svg#icon-logo" />
+              <use href="/iconsprite.svg#logo" />
             </svg>
           </Link>
           <nav>

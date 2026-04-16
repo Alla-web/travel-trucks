@@ -1,0 +1,157 @@
+.cardContainer {
+  width: 100%;
+  height: fit-content;
+  padding: 24px;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+
+  display: flex;
+  gap: 24px;
+}
+
+.imageConatiner {
+  position: relative;
+  border-radius: 10px;
+  width: 392px;
+  height: 320px;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.infoContainer {
+  width: 100%;
+  min-height: 320px;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.namePriceContainer {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+}
+
+.priceIconContainer {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.heardIicon {
+  width: 24px;
+  height: 20px;
+}
+
+.reviewLocationContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #101828;
+
+  margin-bottom: 24px;
+}
+
+.reviewContainer {
+  display: flex;
+}
+
+.starIcon {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 4px;
+}
+
+.reviewText {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
+.locationContainer {
+  display: flex;
+  gap: 4px;
+}
+
+.locationIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.locationText {
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #475467;
+
+  max-width: 525px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  margin-bottom: 24px;
+}
+
+.optionsContainer {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  margin-bottom: 24px;
+}
+
+.optionItem {
+  background-color: var(--options-background);
+  border-radius: 100px;
+  padding: 12px 18px;
+  width: fit-content;
+  height: 48px;
+
+  display: flex;
+  gap: 8px;
+}
+
+.optionsIccons {
+  width: 20px;
+  height: 20px;
+}
+
+.microwaveIcon {
+  fill: transparent;
+  stroke: black;
+}
+
+.showMoreBtn {
+  margin-top: auto;
+  display: inline-block;
+
+  border-radius: 200px;
+  padding: 16px 40px;
+  width: fit-content;
+  height: 56px;
+
+  background-color: var(--buttons-background);
+  color: white;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+}

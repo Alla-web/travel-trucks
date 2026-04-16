@@ -4,6 +4,8 @@ import { Toaster } from "react-hot-toast";
 import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 
+import Header from "./components/Header/Header";
+
 export const metadata: Metadata = {
   title: "TravelTruck app",
   description: "Website for a company that rents campers",
@@ -24,10 +26,13 @@ export default function RootLayout({
   modal?: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} app`}>
-      <body>
-        {children}
-        {modal}
+    <html lang="en" className={inter.variable}>
+      <body className="app">
+        <Header />
+        <main>
+          {children}
+          {modal}
+        </main>
         <Toaster
           position="top-center"
           toastOptions={{
