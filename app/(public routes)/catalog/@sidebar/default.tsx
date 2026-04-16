@@ -256,6 +256,10 @@ export default function SideBarTravelTrucks() {
           <span className={css.filterBtnText}>Water</span>
         </button>
       </div>
+
+      <button className={css.searchBtn} type="button">
+        Search
+      </button>
     </section>
   );
 }
