@@ -20,7 +20,7 @@ export default function FiteredTravelTrucksPage() {
     transmission: "",
   });
 
-  const TravelTrucksParams: GetTravelTucksParams = {
+  const travelTrucksParams: GetTravelTucksParams = {
     location: filters.location,
     form: filters.form,
     engine: filters.engine,
@@ -35,7 +35,7 @@ export default function FiteredTravelTrucksPage() {
       filters.engine,
       filters.transmission,
     ],
-    queryFn: () => getTravelTrucks(TravelTrucksParams),
+    queryFn: () => getTravelTrucks(travelTrucksParams),
     placeholderData: keepPreviousData,
     staleTime: 1 * 60 * 1000,
   });

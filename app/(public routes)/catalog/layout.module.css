@@ -5,11 +5,10 @@
 }
 
 .sidebarContainer {
-  background-color: rgb(191, 197, 202);
-
-  min-width: 38%;
-  max-width: 552px;
-  height: 100vh;
+  width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .travelTrucksContainer {
@@ -17,5 +16,4 @@
   margin-bottom: 48px;
   margin-left: 64px;
   min-width: 62%;
-  max-width: 888px;
 }
