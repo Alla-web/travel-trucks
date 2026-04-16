@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "modern-normalize/modern-normalize.css";
+
 import "./globals.css";
 
-import Header from "./components/Header/Header";
+import TanStackProvider from "../components/TanStackProvider/TanStackProvider";
+import Header from "../components/Header/Header";
 
 export const metadata: Metadata = {
   title: "TravelTruck app",
@@ -28,11 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="app">
-        <Header />
-        <main>
-          {children}
-          {modal}
-        </main>
+        <TanStackProvider>
+          <Header />
+          <main>
+            {children}
+            {modal}
+          </main>
+        </TanStackProvider>
         <Toaster
           position="top-center"
           toastOptions={{

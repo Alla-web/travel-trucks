@@ -7,7 +7,8 @@
 .sidebarContainer {
   background-color: rgb(191, 197, 202);
 
-  width: 552px;
+  min-width: 38%;
+  max-width: 552px;
   height: 100vh;
 }
 
@@ -15,5 +16,6 @@
   margin-top: 48px;
   margin-bottom: 48px;
   margin-left: 64px;
+  min-width: 62%;
   max-width: 888px;
 }

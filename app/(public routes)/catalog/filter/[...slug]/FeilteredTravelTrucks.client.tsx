@@ -1,67 +1,57 @@
 "use client";
 
-import type { TravelTruck } from "@/types/travelTruck";
-import TravelTruckCard from "@/app/components/TravelTruckCard/TravelTruckCard";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-const travelTruck: TravelTruck = {
-  id: "1",
-  name: "Road Bear C 23-25",
-  price: 10000,
-  rating: 4.5,
-  location: "Ukraine, Kyiv",
-  description:
-    "Embadventures, promising comfort, style, and the freedom to explore at your own pace.",
-  form: "alcove",
-  length: "7.3m",
-  width: "2.65m",
-  height: "3.65m",
-  tank: "208l",
-  consumption: "30l/100km",
-  transmission: "automatic",
-  engine: "diesel",
-  AC: false,
-  bathroom: true,
-  kitchen: false,
-  TV: false,
-  radio: false,
-  refrigerator: false,
-  microwave: false,
-  gas: true,
-  water: false,
-  gallery: [
-    {
-      thumb: "https://ftp.goit.study/img/campers-test-task/1-1.webp",
-      original: "https://ftp.goit.study/img/campers-test-task/1-1.webp",
-    },
-    {
-      thumb: "https://ftp.goit.study/img/campers-test-task/1-2.webp",
-      original: "https://ftp.goit.study/img/campers-test-task/1-2.webp",
-    },
-    {
-      thumb: "https://ftp.goit.study/img/campers-test-task/1-3.webp",
-      original: "https://ftp.goit.study/img/campers-test-task/1-3.webp",
-    },
-  ],
-  reviews: [
-    {
-      reviewer_name: "Alice",
-      reviewer_rating: 5,
-      comment:
-        "Exceptional RV! The Road Bear C 23-25 provided a comfortable and enjoyable journey for my family. The amenities were fantastic, and the space was well-utilized. Highly recommended!",
-    },
-    {
-      reviewer_name: "Bob",
-      reviewer_rating: 4,
-      comment:
-        "Great RV for a road trip. Spacious and well-equipped. Only minor issues with the bathroom setup, but overall a wonderful experience.",
-    },
-  ],
-};
+import css from "./FeilteredTravelTrucks.client.module.css";
+
+import type { TravelTruck } from "@/types/travelTruck";
+import TravelTruckCard from "@/components/TravelTruckCard/TravelTruckCard";
+import { TravelTruckFilters } from "@/types/travelTruck";
+import { GetTravelTucksParams } from "@/types/travelTruck";
+import { getTravelTrucks } from "@/lib/api/clientApi";
+import Loader from "@/components/Loader/Loader";
 
 export default function FiteredTravelTrucksPage() {
+  const [filters, setFilters] = useState<TravelTruckFilters>({
+    location: "",
+    form: "",
+    engine: "",
+    transmission: "",
+  });
+
+  const TravelTrucksParams: GetTravelTucksParams = {
+    location: filters.location,
+    form: filters.form,
+    engine: filters.engine,
+    transmission: filters.transmission,
+  };
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: [
+      "capmers",
+      filters.location,
+      filters.form,
+      filters.engine,
+      filters.transmission,
+    ],
+    queryFn: () => getTravelTrucks(TravelTrucksParams),
+    placeholderData: keepPreviousData,
+    staleTime: 1 * 60 * 1000,
+  });
+
   return (
-    <>
-      <TravelTruckCard travelTruck={travelTruck} />
-    </>
+    <section>
+      {isLoading && <Loader />}
+
+      <ul className={css.tracelTrucksList}>
+        {!isLoading &&
+          data?.items?.map((travelTruck) => (
+            <li key={travelTruck.id}>
+              <TravelTruckCard travelTruck={travelTruck} />
+            </li>
+          ))}
+      </ul>
+    </section>
   );
 }

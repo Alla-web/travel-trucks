@@ -38,7 +38,21 @@ export interface TravelTruck {
   reviews: TravelTruckReview[];
 }
 
-export interface TravelTruckResponse {
+export interface TravelTruckFilters {
+  location?: string;
+  form?: string;
+  engine?: string;
+  transmission?: string;
+}
+
+export interface GetTravelTucksParams {
+  location?: string;
+  form?: string;
+  engine?: string;
+  transmission?: string;
+}
+
+export interface GetTravelTruckResponse {
   total: number;
   items: TravelTruck[];
 }
