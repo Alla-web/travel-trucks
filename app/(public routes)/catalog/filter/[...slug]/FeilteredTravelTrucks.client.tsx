@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import css from "./FeilteredTravelTrucks.client.module.css";
@@ -21,13 +22,17 @@ interface FiteredTravelTrucksPageProps {
 
 export default function FiteredTravelTrucksPage({
   page,
-  limit = 4,
+  limit,
   location,
   form,
   engine,
   transmission,
   equipment,
 }: FiteredTravelTrucksPageProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const travelTrucksParams: GetTravelTucksParams = {
     page,
     limit,
@@ -54,6 +59,25 @@ export default function FiteredTravelTrucksPage({
     staleTime: 1 * 60 * 1000,
   });
 
+  console.log(data?.total);
+
+  const handleLoadMore = () => {
+    const currentSearchParams = new URLSearchParams(searchParams.toString());
+
+    const currentLimit = Number(currentSearchParams.get("limit") ?? "4");
+    const step = 4;
+    const newLimit = currentLimit + step;
+
+    currentSearchParams.set("page", "1");
+    currentSearchParams.set("limit", String(newLimit));
+
+    router.push(`${pathname}?${currentSearchParams.toString()}`);
+  };
+
+  const total = Number(data?.total ?? 0);
+  const loaded = data?.items?.length ?? 0;
+  const hasMore = loaded < total;
+
   return (
     <section className={css.sectionContainer}>
       {isLoading && <Loader />}
@@ -67,8 +91,12 @@ export default function FiteredTravelTrucksPage({
           ))}
       </ul>
 
-      {!isLoading && Number(data?.total) > 4 && (
-        <button className={css.loadMoreBtn} type="button">
+      {!isLoading && hasMore && (
+        <button
+          onClick={handleLoadMore}
+          className={css.loadMoreBtn}
+          type="button"
+        >
           {isLoading ? "Loading..." : "Load more"}
         </button>
       )}
