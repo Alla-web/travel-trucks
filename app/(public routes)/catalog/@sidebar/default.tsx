@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -85,7 +84,7 @@ export default function SideBarTravelTrucks() {
     if (filters.equipment.length > 0)
       searchParams.set("equipment", filters.equipment.join(","));
 
-    router.push(`/catalog/filter/all?${searchParams.toString()}`);
+    router.push(`/catalog/?${searchParams.toString()}`);
   };
 
   return (

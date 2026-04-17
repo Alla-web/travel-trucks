@@ -59,8 +59,6 @@ export default function FiteredTravelTrucksPage({
     staleTime: 1 * 60 * 1000,
   });
 
-  console.log(data?.total);
-
   const handleLoadMore = () => {
     const currentSearchParams = new URLSearchParams(searchParams.toString());
 
