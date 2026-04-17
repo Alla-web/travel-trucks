@@ -1,5 +1,38 @@
-.tracelTrucksList {
+.sectionContainer {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.travelTrucksList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 32px;
+}
+
+.loadMoreBtn {
+  margin: 0 auto;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+
+  width: fit-content;
+  height: 56px;
+  padding: 16px 32px;
+  border: 1px solid #dadde1;
+  border-radius: 200px;
+
+  background-color: #fff;
+  color: #101828;
+}
+
+.loadMoreBtn:hover,
+.loadMoreBtn:focus {
+  border: 1px solid #d84343;
 }

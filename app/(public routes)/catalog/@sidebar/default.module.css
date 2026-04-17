@@ -140,6 +140,10 @@
   box-sizing: border-box;
 }
 
+.activeFilterButton {
+  border: 1px solid #e44848;
+}
+
 .filterBtnIcons {
   width: 32px;
   height: 32px;
@@ -175,4 +179,9 @@
   font-size: 16px;
   line-height: 150%;
   letter-spacing: -0.01em;
+}
+
+.searchBtn:hover,
+.searchBtn:focus {
+  background-color: #d84343;
 }

@@ -1,39 +1,53 @@
 "use client";
 
-import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import css from "./FeilteredTravelTrucks.client.module.css";
 
-import type { TravelTruck } from "@/types/travelTruck";
 import TravelTruckCard from "@/components/TravelTruckCard/TravelTruckCard";
-import { TravelTruckFilters } from "@/types/travelTruck";
 import { GetTravelTucksParams } from "@/types/travelTruck";
 import { getTravelTrucks } from "@/lib/api/clientApi";
 import Loader from "@/components/Loader/Loader";
 
-export default function FiteredTravelTrucksPage() {
-  const [filters, setFilters] = useState<TravelTruckFilters>({
-    location: "",
-    form: "",
-    engine: "",
-    transmission: "",
-  });
+interface FiteredTravelTrucksPageProps {
+  page: number;
+  limit: number;
+  location: string;
+  form: string;
+  engine: string;
+  transmission: string;
+  equipment: string[];
+}
 
+export default function FiteredTravelTrucksPage({
+  page,
+  limit = 4,
+  location,
+  form,
+  engine,
+  transmission,
+  equipment,
+}: FiteredTravelTrucksPageProps) {
   const travelTrucksParams: GetTravelTucksParams = {
-    location: filters.location,
-    form: filters.form,
-    engine: filters.engine,
-    transmission: filters.transmission,
+    page,
+    limit,
+    location,
+    form,
+    engine,
+    transmission,
+    equipment,
   };
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [
-      "capmers",
-      filters.location,
-      filters.form,
-      filters.engine,
-      filters.transmission,
+      "campers",
+      page,
+      limit,
+      location,
+      form,
+      engine,
+      transmission,
+      equipment,
     ],
     queryFn: () => getTravelTrucks(travelTrucksParams),
     placeholderData: keepPreviousData,
@@ -41,10 +55,10 @@ export default function FiteredTravelTrucksPage() {
   });
 
   return (
-    <section>
+    <section className={css.sectionContainer}>
       {isLoading && <Loader />}
 
-      <ul className={css.tracelTrucksList}>
+      <ul className={css.travelTrucksList}>
         {!isLoading &&
           data?.items?.map((travelTruck) => (
             <li key={travelTruck.id}>
@@ -52,6 +66,12 @@ export default function FiteredTravelTrucksPage() {
             </li>
           ))}
       </ul>
+
+      {!isLoading && Number(data?.total) > 4 && (
+        <button className={css.loadMoreBtn} type="button">
+          {isLoading ? "Loading..." : "Load more"}
+        </button>
+      )}
     </section>
   );
 }

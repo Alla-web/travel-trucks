@@ -8,10 +8,13 @@ export async function GET(req: NextRequest) {
 
     const response = await api.get("/campers", {
       params: {
+        page: searchParams.get("page") || undefined,
+        limit: searchParams.get("limit") || undefined,
         location: searchParams.get("location") || undefined,
         form: searchParams.get("form") || undefined,
         engine: searchParams.get("engine") || undefined,
         transmission: searchParams.get("transmission") || undefined,
+        equipment: searchParams.get("equipment") || undefined,
       },
     });
 

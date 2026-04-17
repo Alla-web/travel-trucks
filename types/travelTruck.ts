@@ -39,20 +39,26 @@ export interface TravelTruck {
 }
 
 export interface TravelTruckFilters {
-  location?: string;
-  form?: string;
-  engine?: string;
-  transmission?: string;
+  page?: number;
+  limit?: number;
+  location: string;
+  form: string;
+  engine: string;
+  transmission: string;
+  equipment: string[];
 }
 
 export interface GetTravelTucksParams {
+  page?: number;
+  limit?: number;
   location?: string;
   form?: string;
   engine?: string;
   transmission?: string;
+  equipment: string[];
 }
 
 export interface GetTravelTruckResponse {
-  total: number;
+  total: string;
   items: TravelTruck[];
 }
