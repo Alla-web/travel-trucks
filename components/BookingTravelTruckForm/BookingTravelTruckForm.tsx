@@ -15,13 +15,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-import css from "./BookTravelTruckForm.module.css";
+import css from "./BookingTravelTruckForm.module.css";
 
-import {
-  Booking,
-  BookingPayload,
-  CreateTravelTruckBookingForm,
-} from "@/types/booking";
+import { BookingPayload, CreateTravelTruckBookingForm } from "@/types/booking";
 import { BackendErrorResponse } from "@/types/error";
 import { createBooking } from "@/lib/api/clientApi";
 
@@ -89,7 +85,7 @@ export default function BookTravelTruckForm({
         comment: values.comment.trim(),
       };
 
-      const response = await createBooking<Booking>(payload);
+      const response = await createBooking(payload);
       if (response) toast.success("Booking was successfully created");
 
       actions.resetForm();

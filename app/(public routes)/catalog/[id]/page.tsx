@@ -1,20 +1,20 @@
-import BookTravelTruckForm from "@/components/BookTravelTruckForm/BookTravelTruckForm";
+import TravelTruckDetails from "./TravelTruckDetails.client";
+import BookingTravelTruckForm from "@/components/BookingTravelTruckForm/BookingTravelTruckForm";
+
+import css from "./pag.module.css";
 
 interface TravelTruckDetailsProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function TravelTruckDetails({
+export default async function TravelTruckDetailsPage({
   params,
 }: TravelTruckDetailsProps) {
   const { id } = await params;
-  console.log("TravelTruckDetails ID: ", id);
+
   return (
-    <div>
-      <p style={{ marginBottom: "40px" }}>
-        {`Travel truck with ID - ${id} - details`}
-      </p>
-      <BookTravelTruckForm id={id} />
+    <div className={css.pageContainer}>
+      <TravelTruckDetails id={id} />
     </div>
   );
 }

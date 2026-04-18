@@ -4,6 +4,7 @@ import { nextServer } from "./api";
 import { GetTravelTucksParams } from "@/types/travelTruck";
 import { GetTravelTruckResponse } from "@/types/travelTruck";
 import { Booking } from "@/types/booking";
+import { TravelTruck } from "@/types/travelTruck";
 
 export async function getTravelTrucks(params: GetTravelTucksParams) {
   const response = await nextServer.get<GetTravelTruckResponse>("/campers", {
@@ -13,9 +14,12 @@ export async function getTravelTrucks(params: GetTravelTucksParams) {
   return response.data;
 }
 
-export async function createBooking<Booking>(
-  payload: BookingPayload,
-): Promise<Booking> {
+export async function getTraveltruckById(id: string) {
+  const response = await nextServer.get<TravelTruck>(`/campers/${id}`);
+  return response.data;
+}
+
+export async function createBooking(payload: BookingPayload): Promise<Booking> {
   const response = await nextServer.post<Booking>("/bookings", payload, {
     withCredentials: false,
   });

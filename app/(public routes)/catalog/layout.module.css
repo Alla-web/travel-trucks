@@ -1,4 +1,5 @@
 .sectionContainer {
+  margin-top: 80px;
   display: flex;
   gap: 64px;
   align-items: flex-start;
