@@ -1,7 +1,17 @@
 "use client";
 
-import { Formik, Field, ErrorMessage, Form, FormikHelpers } from "formik";
+import {
+  Formik,
+  Field,
+  useField,
+  ErrorMessage,
+  Form,
+  FormikHelpers,
+  useFormikContext,
+} from "formik";
 import * as Yup from "yup";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import css from "./BookTravelTruckForm.module.css";
 
@@ -10,7 +20,7 @@ import { CreateTravelTruckBooking } from "@/types/travelTruck";
 const bookingInitialValues: CreateTravelTruckBooking = {
   username: "",
   email: "",
-  bookingDate: "",
+  bookingDate: null,
   comment: "",
 };
 
@@ -24,6 +34,25 @@ const bookingSchema = Yup.object().shape({
     .min(new Date(), "Date cannot be in the past"),
   comment: Yup.string(),
 });
+
+function DateField({ name }: any) {
+  const [field, , helpers] = useField(name);
+  const { setFieldValue } = useFormikContext();
+
+  return (
+    <DatePicker
+      selected={field.value}
+      onChange={(date: Date | null) => setFieldValue(name, date)}
+      placeholderText="Booking date*"
+      className={css.formFields}
+      dateFormat="dd/MM/yyyy"
+      formatWeekDay={(nameOfDay) => nameOfDay.slice(0, 3).toUpperCase()}
+      calendarClassName={css.datePickerCalendar}
+      popperClassName={css.datePickerPopper}
+      popperPlacement="bottom-end"
+    />
+  );
+}
 
 const handleSubmit = async () => {};
 
@@ -64,14 +93,7 @@ export default function BookTravelTruckForm() {
               <ErrorMessage name="email" component="p" className={css.error} />
             </div>
             <div>
-              <Field
-                className={css.formFields}
-                as="select"
-                type="text"
-                name="bookingDate"
-              >
-                <option value="">Booking date*</option>
-              </Field>
+              <DateField name="bookingDate" />
               <ErrorMessage
                 name="bookingDate"
                 component="p"

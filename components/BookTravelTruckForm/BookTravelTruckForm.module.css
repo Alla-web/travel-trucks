@@ -41,6 +41,7 @@
 }
 
 .formFields {
+  box-sizing: border-box;
   width: 100%;
   height: 60px;
   padding: 18px;
@@ -59,6 +60,202 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
+/* стилі календаря у формі букінгу  */
+
+:global(.react-datepicker-wrapper) {
+  width: 100%;
+}
+
+:global(.react-datepicker__input-container) {
+  width: 100%;
+}
+
+/* стилі контейнеру */
+
+:global(.react-datepicker) {
+  border: 1px solid #475467;
+  border-radius: 20px;
+  background-color: #fff;
+  font-family: inherit;
+  padding: 0;
+  overflow: hidden;
+}
+
+.datePickerPopper {
+  z-index: 20;
+  position: relative;
+  overflow: visible;
+}
+
+/* базово ховаємо стандартний трикутник */
+:global(.react-datepicker__triangle) {
+  display: none;
+}
+
+.datePickerPopper::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  border-top: 1px solid #475467;
+  border-left: 1px solid #475467;
+  z-index: 21;
+}
+
+.datePickerPopper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 21px;
+  height: 8px;
+  background-color: #fff;
+  z-index: 22;
+}
+
+.datePickerPopper[data-popper-placement^="top"]::before {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(225deg);
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+  border-top: 1px solid #475467;
+  border-left: 1px solid #475467;
+  z-index: 21;
+}
+
+.datePickerPopper[data-popper-placement^="top"]::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 8px;
+  background-color: #fff;
+  z-index: 22;
+}
+
+:global(.react-datepicker__triangle path) {
+  fill: #fff;
+  stroke: #475467;
+}
+
+:global(.react-datepicker__header) {
+  background-color: #fff;
+  border-bottom: none;
+  padding: 16px 16px 12px;
+  /* Закруглюємо верхні кути шапки */
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+:global(.react-datepicker__month-container) {
+  float: none;
+  background-color: #fff;
+}
+
+:global(.react-datepicker__current-month) {
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #101828;
+}
+
+:global(.react-datepicker__header),
+:global(.react-datepicker__month-container) {
+  border: none !important;
+}
+
+:global(.react-datepicker__day-names) {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 12px;
+
+  border-bottom: 1px solid #475467;
+}
+
+:global(.react-datepicker__day-name) {
+  width: 40px;
+  line-height: 40px;
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  color: #475467;
+  text-transform: uppercase;
+}
+
+:global(.react-datepicker__month) {
+  margin: 16px;
+}
+
+:global(.react-datepicker__week) {
+  display: flex;
+  justify-content: space-between;
+}
+
+:global(.react-datepicker__day) {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  border-radius: 50%;
+  font-size: 16px;
+  font-weight: 400;
+  color: #101828;
+}
+
+:global(.react-datepicker__day:hover) {
+  border-radius: 50%;
+  background-color: #f2f4f7;
+}
+
+:global(.react-datepicker__day--selected),
+:global(.react-datepicker__day--keyboard-selected) {
+  background-color: #475467;
+  color: #fff;
+  border-radius: 50%;
+}
+
+:global(.react-datepicker__day--selected:hover),
+:global(.react-datepicker__day--keyboard-selected:hover) {
+  background-color: #475467;
+}
+
+:global(.react-datepicker__day--outside-month) {
+  color: #98a2b3;
+}
+
+:global(.react-datepicker__navigation) {
+  top: 16px;
+  z-index: 10;
+}
+
+:global(.react-datepicker__navigation--previous) {
+  left: 8px;
+}
+
+:global(.react-datepicker__navigation--next) {
+  right: 8px;
+}
+
+:global(.react-datepicker__navigation-icon::before) {
+  border-color: #475467;
+  border-width: 2px 2px 0 0;
+  width: 8px;
+  height: 8px;
+}
+/* ----------------------------------- */
 
 .formikForm textarea {
   height: 118px;
