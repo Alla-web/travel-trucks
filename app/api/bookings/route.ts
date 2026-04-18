@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { api, ApiError } from "../api";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
+    const body = await request.json();
 
     const payload = {
       camperId: body.camperId,

@@ -27,8 +27,6 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
     staleTime: 1 * 60 * 1000,
   });
 
-  console.log(travelTruck);
-
   return (
     <>
       {travelTruck && (
