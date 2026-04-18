@@ -62,3 +62,10 @@ export interface GetTravelTruckResponse {
   total: string;
   items: TravelTruck[];
 }
+
+export interface CreateTravelTruckBooking {
+  username: string;
+  email: string;
+  bookingDate: string | Date | null;
+  comment: string;
+}

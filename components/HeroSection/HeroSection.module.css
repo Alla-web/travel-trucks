@@ -1,9 +1,13 @@
 .sectionContainer {
   min-height: 696px;
+
   background-image: image-set(
-    url("/hero/hero-iamge-1x.webp") 1x,
+    url("/hero/hero-image-1x.webp") 1x,
     url("/hero/hero-image-2x.webp") 2x
   );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .heroSectionInner {
