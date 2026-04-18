@@ -12,12 +12,24 @@ import {
 import * as Yup from "yup";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 import css from "./BookTravelTruckForm.module.css";
 
-import { CreateTravelTruckBooking } from "@/types/travelTruck";
+import {
+  Booking,
+  BookingPayload,
+  CreateTravelTruckBookingForm,
+} from "@/types/booking";
+import { BackendErrorResponse } from "@/types/error";
+import { createBooking } from "@/lib/api/clientApi";
 
-const bookingInitialValues: CreateTravelTruckBooking = {
+interface BookTravelTruckFormProps {
+  id: string;
+}
+
+const bookingInitialValues: CreateTravelTruckBookingForm = {
   username: "",
   email: "",
   bookingDate: null,
@@ -31,12 +43,15 @@ const bookingSchema = Yup.object().shape({
     .nullable()
     .required("Date is required")
     .typeError("Please enter a valid date")
-    .min(new Date(), "Date cannot be in the past"),
+    .min(
+      new Date(new Date().setHours(0, 0, 0, 0)),
+      "Date cannot be in the past",
+    ),
   comment: Yup.string(),
 });
 
 function DateField({ name }: any) {
-  const [field, , helpers] = useField(name);
+  const [field, helpers] = useField(name);
   const { setFieldValue } = useFormikContext();
 
   return (
@@ -54,9 +69,49 @@ function DateField({ name }: any) {
   );
 }
 
-const handleSubmit = async () => {};
+export default function BookTravelTruckForm({
+  id: camperId,
+}: BookTravelTruckFormProps) {
+  const handleSubmit = async (
+    values: CreateTravelTruckBookingForm,
+    actions: FormikHelpers<CreateTravelTruckBookingForm>,
+  ) => {
+    try {
+      actions.setStatus(null);
 
-export default function BookTravelTruckForm() {
+      const payload: BookingPayload = {
+        camperId,
+        username: values.username.trim(),
+        email: values.email.trim(),
+        bookingDate: values.bookingDate
+          ? values.bookingDate.toISOString()
+          : null,
+        comment: values.comment.trim(),
+      };
+
+      const response = await createBooking<Booking>(payload);
+      if (response) toast.success("Booking was successfully created");
+
+      actions.resetForm();
+      console.log("Created booking:", response);
+    } catch (error: unknown) {
+      if (axios.isAxiosError<BackendErrorResponse>(error)) {
+        const backendErrors = error.response?.data;
+
+        if (backendErrors?.errors) {
+          actions.setErrors(backendErrors.errors);
+        }
+
+        if (backendErrors?.message) {
+          actions.setStatus(backendErrors.message);
+          toast.error(backendErrors.message);
+        }
+      }
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+
   return (
     <section className={css.bookFormContainer}>
       <h4 className={css.formTitle}>Book your campervan now</h4>

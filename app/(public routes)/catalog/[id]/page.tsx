@@ -1,16 +1,20 @@
 import BookTravelTruckForm from "@/components/BookTravelTruckForm/BookTravelTruckForm";
 
 interface TravelTruckDetailsProps {
-  id: string;
+  params: Promise<{ id: string }>;
 }
 
-export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
+export default async function TravelTruckDetails({
+  params,
+}: TravelTruckDetailsProps) {
+  const { id } = await params;
+  console.log("TravelTruckDetails ID: ", id);
   return (
     <div>
       <p style={{ marginBottom: "40px" }}>
-        `Travel truck with ID - ${id} details`
+        {`Travel truck with ID - ${id} - details`}
       </p>
-      <BookTravelTruckForm />
+      <BookTravelTruckForm id={id} />
     </div>
   );
 }
