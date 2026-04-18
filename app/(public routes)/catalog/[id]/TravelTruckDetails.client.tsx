@@ -2,6 +2,7 @@
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useState } from "react";
 
 import css from "./TravelTruckDetails.client.module.css";
 
@@ -10,12 +11,15 @@ import { TravelTruck } from "@/types/travelTruck";
 import BookingTravelTruckForm from "@/components/BookingTravelTruckForm/BookingTravelTruckForm";
 import TravelTruckFeaturesSection from "@/components/TravelTruckFeaturesSection/TravelTruckFeaturesSection";
 import TravelTruckReviewsSection from "@/components/TravelTruckReviewsSection/TravelTruckReviewsSection";
+import Loader from "@/components/Loader/Loader";
 
 interface TravelTruckDetailsProps {
   id: string;
 }
 
 export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
+  const [isActiveTab, setIsActiveTab] = useState("features");
+
   const {
     data: travelTruck,
     isLoading,
@@ -29,6 +33,8 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
 
   return (
     <>
+      {isLoading && <Loader />}
+
       {travelTruck && (
         <div className={css.pageContainer}>
           <h2 className={css.travelTruckName}>{travelTruck?.name}</h2>
@@ -50,8 +56,8 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
           </div>
           <p className={css.price}>€ {travelTruck.price.toFixed(2)}</p>
           <div className={css.photoContainer}>
-            {travelTruck.gallery.map((item) => (
-              <div key={travelTruck.id} className={css.imageConatiner}>
+            {travelTruck.gallery.map((item, index) => (
+              <div key={item.thumb} className={css.imageConatiner}>
                 <Image
                   className={css.image}
                   src={item.thumb}
@@ -62,18 +68,34 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
                     objectFit: "cover",
                     objectPosition: "center",
                   }}
+                  priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
             ))}
           </div>
           <p className={css.description}>{travelTruck.description}</p>
           <div className={css.sectionTitles}>
-            <p>Features</p>
-            <p>Reviews</p>
+            <button
+              onClick={() => setIsActiveTab("features")}
+              className={css.featureReviewsToggleBtns}
+            >
+              Features
+            </button>
+            <button
+              onClick={() => setIsActiveTab("reviews")}
+              className={css.featureReviewsToggleBtns}
+            >
+              Reviews
+            </button>
           </div>
           <div className={css.sectionsContainer}>
-            <TravelTruckFeaturesSection travelTruck={travelTruck} />
-            <BookingTravelTruckForm id={id} />
+            {isActiveTab === "features" ? (
+              <TravelTruckFeaturesSection travelTruck={travelTruck} />
+            ) : (
+              <TravelTruckReviewsSection travelTruck={travelTruck} />
+            )}
+            {<BookingTravelTruckForm id={id} />}
           </div>
         </div>
       )}

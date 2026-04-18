@@ -5,18 +5,13 @@ import Link from "next/link";
 
 import css from "./TravelTruckCard.module.css";
 
-import { TravelTruck } from "@/types/travelTruck";
+import { TravelTruck, capitalizer } from "@/types/travelTruck";
 
 interface TravelTruckCardProps {
   travelTruck: TravelTruck;
 }
 
 export default function TravelTruckCard({ travelTruck }: TravelTruckCardProps) {
-  function capitalizer(word: string) {
-    if (!word) return;
-    return word[0].toUpperCase() + word.slice(1);
-  }
-
   return (
     <div className={css.cardContainer}>
       <div className={css.imageConatiner}>

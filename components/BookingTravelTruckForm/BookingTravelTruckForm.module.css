@@ -13,7 +13,7 @@
 }
 
 .formTitle {
-  color: #101828;
+  color: var(--text-main-color);
   font-weight: 600;
   font-size: 20px;
   line-height: 120%;
@@ -168,7 +168,7 @@
   font-weight: 600;
   font-size: 18px;
   line-height: 1.2;
-  color: #101828;
+  color: var(--text-main-color);
 }
 
 :global(.react-datepicker__header),
@@ -211,7 +211,7 @@
   border-radius: 50%;
   font-size: 16px;
   font-weight: 400;
-  color: #101828;
+  color: var(--text-main-color);
 }
 
 :global(.react-datepicker__day:hover) {
@@ -270,11 +270,11 @@
 
 .sendBtn {
   align-self: center;
-  margin-top: 24px;
+  margin-top: auto;
 
   border-radius: 200px;
   padding: 16px 40px;
-  width: fit-content;
+  width: 166px;
   height: 56px;
 
   background-color: var(--buttons-background);
@@ -288,5 +288,5 @@
 
 .sendBtn:hover,
 .sendBtn:focus {
-  background-color: #d84343;
+  background-color: var(--active-page-color);
 }

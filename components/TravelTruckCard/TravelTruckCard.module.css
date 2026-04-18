@@ -61,7 +61,7 @@
   font-weight: 400;
   font-size: 16px;
 
-  color: #101828;
+  color: var(--text-main-color);
 
   margin-bottom: 24px;
 }
@@ -156,5 +156,5 @@
 
 .showMoreBtn:hover,
 .showMoreBtn:focus {
-  background-color: #d84343;
+  background-color: var(--active-page-color);
 }

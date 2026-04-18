@@ -29,10 +29,10 @@
   border-radius: 200px;
 
   background-color: #fff;
-  color: #101828;
+  color: var(--text-main-color);
 }
 
 .loadMoreBtn:hover,
 .loadMoreBtn:focus {
-  border: 1px solid #d84343;
+  border: 1px solid var(--active-page-color);
 }

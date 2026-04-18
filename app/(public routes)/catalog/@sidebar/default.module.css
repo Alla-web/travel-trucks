@@ -2,7 +2,7 @@
   margin-top: 48px;
 
   max-width: 360px;
-  color: #101828;
+  color: var(--text-main-color);
   font-size: 20px;
 
   display: flex;
@@ -57,7 +57,7 @@
   padding: 0 46px 0 44px;
 
   font-size: 16px;
-  color: #101828;
+  color: var(--text-main-color);
 
   cursor: pointer;
 }
@@ -76,7 +76,7 @@
 
 .locationSelect option {
   font-size: 16px;
-  color: #101828;
+  color: var(--text-main-color);
   background-color: #fff;
 }
 
@@ -141,7 +141,7 @@
 }
 
 .activeFilterButton {
-  border: 1px solid #e44848;
+  border: 1px solid var(--buttons-background);
 }
 
 .filterBtnIcons {
@@ -183,5 +183,5 @@
 
 .searchBtn:hover,
 .searchBtn:focus {
-  background-color: #d84343;
+  background-color: var(--active-page-color);
 }

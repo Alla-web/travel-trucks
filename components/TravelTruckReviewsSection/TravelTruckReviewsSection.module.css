@@ -2,6 +2,56 @@
   width: 631px;
   height: 588px;
 
-  border: 1px solid lightgray;
-  border-radius: 12px;
+  padding-top: 10px;
+}
+
+.reviwsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+
+.nameRatingContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin-bottom: 16px;
+}
+
+.firstLetter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  background-color: var(--options-background);
+  color: var(--buttons-background);
+
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+}
+
+.nameRatingWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reviewersName {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--text-main-color);
+}
+
+.reviewText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--text-sub-color);
 }
