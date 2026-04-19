@@ -9,6 +9,86 @@ import { GetTravelTucksParams } from "@/types/travelTruck";
 import FilteredTravelTrucksPage from "./FeilteredTravelTrucks.client";
 import { getTravelTrucks } from "@/lib/api/serverApi";
 
+interface GenerateMetadataProps {
+  searchParams: {
+    page?: string;
+    limit?: string;
+    location?: string;
+    form?: string;
+    engine?: string;
+    transmission?: string;
+    equipment?: string;
+  };
+}
+
+export async function generateMetadata({
+  searchParams,
+}: GenerateMetadataProps): Promise<Metadata> {
+  const page = Number(searchParams.page) || 1;
+  const location = searchParams.location || "Європа";
+  const form = searchParams.form || "всі типи";
+  const engine = searchParams.engine || "";
+  const transmission = searchParams.transmission || "";
+
+  const filters = [
+    location && `локація: ${location}`,
+    form && `тип: ${form}`,
+    engine && `двигун: ${engine}`,
+    transmission && `трансмісія: ${transmission}`,
+  ]
+    .filter(Boolean)
+    .join(", ");
+
+  const title = `Оренда кемперів${filters ? ` (${filters})` : ""} | Сторінка ${page}`;
+  const description = `Знайдіть ідеальний кемпер для подорожі. ${
+    filters ? `Фільтри: ${filters}.` : ""
+  } Переглядайте доступні travel trucks, бронюйте онлайн та подорожуйте комфортно.`;
+
+  const baseUrl = "https://travel-trucks-tau-weld.vercel.app";
+
+  const url = `${baseUrl}/catalog?page=${page}`;
+
+  return {
+    title,
+    description,
+
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Travel Trucks",
+      images: [
+        {
+          url: "https://travel-trucks-tau-weld.vercel.app/hero/hero-image-1x.webp",
+          width: 1200,
+          height: 630,
+          alt: "Travel Trucks Catalog",
+        },
+      ],
+      locale: "uk_UA",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [
+        "https://travel-trucks-tau-weld.vercel.app/hero/hero-image-1x.webp",
+      ],
+    },
+
+    alternates: {
+      canonical: url,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
+
 interface TravelTrucksPageProps {
   searchParams: Promise<{
     page?: string;
