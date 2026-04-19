@@ -12,6 +12,8 @@ import BookingTravelTruckForm from "@/components/BookingTravelTruckForm/BookingT
 import TravelTruckFeaturesSection from "@/components/TravelTruckFeaturesSection/TravelTruckFeaturesSection";
 import TravelTruckReviewsSection from "@/components/TravelTruckReviewsSection/TravelTruckReviewsSection";
 import Loader from "@/components/Loader/Loader";
+import GallerySwiperOrigin from "@/components/GallerySwiperOrigin/GallerySwiperOrigin";
+import GallerySwiper from "@/components/GallerySwiper/GallerySwiper";
 
 interface TravelTruckDetailsProps {
   id: string;
@@ -30,6 +32,8 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
     placeholderData: keepPreviousData,
     staleTime: 1 * 60 * 1000,
   });
+
+  const galleryOroginal = travelTruck?.gallery.map((item) => item.original);
 
   return (
     <>
@@ -56,23 +60,10 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
           </div>
           <p className={css.price}>€{travelTruck.price.toFixed(2)}</p>
           <div className={css.photoContainer}>
-            {travelTruck.gallery.map((item, index) => (
-              <div key={item.thumb} className={css.imageConatiner}>
-                <Image
-                  className={css.image}
-                  src={item.thumb}
-                  alt={travelTruck.name}
-                  fill
-                  unoptimized
-                  style={{
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
-                  priority={index === 0}
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              </div>
-            ))}
+            {/* {galleryOroginal && (
+              <GallerySwiperOrigin images={galleryOroginal} />
+            )} */}
+            {galleryOroginal && <GallerySwiper images={galleryOroginal} />}
           </div>
           <p className={css.description}>{travelTruck.description}</p>
           <div className={css.sectionTitles}>

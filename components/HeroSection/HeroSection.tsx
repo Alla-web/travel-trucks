@@ -14,9 +14,10 @@ export default function HeroSection() {
             src="/hero/hero-image-2x.webp"
             alt="Hero Background"
             fill
+            unoptimized
             priority
             className={css.bgImage}
-            style={{ objectFit: "cover", zIndex: -1 }}
+            style={{ objectFit: "cover", objectPosition: "center", zIndex: -1 }}
           />
           <h1 className={css.mainTitle}>Campers of your dreams</h1>
           <h2 className={css.subTitile}>

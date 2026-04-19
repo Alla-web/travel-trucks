@@ -1,0 +1,43 @@
+.galleryWrapper {
+  width: 100%;
+}
+
+.mainSwiper {
+  height: 412px; /* Висота головного фото */
+  border-radius: 20px;
+  margin-bottom: 10px;
+
+  --swiper-navigation-color: var(--text-sub-color);
+}
+
+.thumbsSwiper {
+  height: 100px; /* Висота маленьких фото */
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+/* Напівпрозорість неактивных мініатюр */
+.thumbSlide {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+/* Яскравість активної мініатюры (класс Swiper сам додає) */
+:global(.swiper-slide-thumb-active) .thumbSlide {
+  opacity: 1;
+}
+
+.mainImageContainer,
+.thumbImageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgb(188, 188, 188);
+}
+
+.image {
+  object-fit: cover;
+}

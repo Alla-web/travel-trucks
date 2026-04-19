@@ -1,0 +1,26 @@
+.galleryWrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.mySwiper {
+  width: 100%;
+  height: 312px;
+  border-radius: 10px;
+}
+
+.slideContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid rgb(188, 188, 188);
+  overflow: hidden;
+}
+
+.image {
+  width: 292px;
+  height: 100%;
+  object-fit: cover;
+}
