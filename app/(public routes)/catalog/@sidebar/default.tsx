@@ -16,7 +16,6 @@ export default function SideBarTravelTrucks() {
 
   const [filters, setFilters] = useState<TravelTruckFilters>({
     page: 1,
-    limit: 4,
     location: "",
     form: "",
     engine: "",
@@ -77,8 +76,8 @@ export default function SideBarTravelTrucks() {
   const handleSearchClick = () => {
     const searchParams = new URLSearchParams();
 
-    if (filters.page) searchParams.set("page", String(filters.page));
-    if (filters.limit) searchParams.set("limit", String(filters.limit));
+    searchParams.set("page", "1");
+
     if (filters.location) searchParams.set("location", filters.location);
     if (filters.form) searchParams.set("form", filters.form);
     if (filters.engine) searchParams.set("engine", filters.engine);
@@ -90,36 +89,29 @@ export default function SideBarTravelTrucks() {
     router.push(`/catalog/?${searchParams.toString()}`);
   };
 
+  const handleResetFilters = () => {
+    const filters = {
+      page: 1,
+      location: "",
+      form: "",
+      engine: "",
+      transmission: "",
+      equipment: [],
+    };
+
+    setFilters(filters);
+    router.push("/catalog");
+  };
+
   return (
     <section className={css.filterContainer}>
       <div className={css.locationContainer}>
         <p className={css.locationTitle}>Location</p>
         <div className={css.iconSelectContainer}>
-          {/* <svg className={css.mapIcon}>
-            <use href="/iconsprite.svg#map-black" />
-          </svg> */}
-
-          {/* <select
-            value={filters.location}
-            onChange={handleSelectChange}
-            className={css.locationSelect}
-          >
-            <option value=""> Виберіть локацію</option>
-            {locationsList.map((location) => (
-              <option key={location} value={location}>
-                {location}
-              </option>
-            ))}
-          </select> */}
-
           <LocationsSelect
             locationsList={locationsList}
             onChange={handleLocationChange}
           />
-
-          {/* <svg className={css.arrowDownIcon}>
-            <use href="/iconsprite.svg#keyboard_arrow_down" />
-          </svg> */}
         </div>
         <p className={css.filtersText}>Filters</p>
 
@@ -356,13 +348,23 @@ export default function SideBarTravelTrucks() {
         </button>
       </div>
 
-      <button
-        onClick={handleSearchClick}
-        className={css.searchBtn}
-        type="button"
-      >
-        Search
-      </button>
+      <div className={css.btnsContainer}>
+        <button
+          onClick={handleSearchClick}
+          className={`${css.btns} ${css.searchBtn}`}
+          type="button"
+        >
+          Search
+        </button>
+
+        <button
+          onClick={handleResetFilters}
+          className={`${css.btns} ${css.resetBtn}`}
+          type="button"
+        >
+          Reset filters
+        </button>
+      </div>
     </section>
   );
 }

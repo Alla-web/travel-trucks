@@ -106,7 +106,7 @@ export default async function Catalog({ searchParams }: TravelTrucksPageProps) {
 
   const searchParameters = await searchParams;
   const page = Number(searchParameters.page) || 1;
-  const limit = Number(searchParameters.limit) || 4;
+  const limit = 4;
   const location = searchParameters.location || "";
   const form = searchParameters.form || "";
   const engine = searchParameters.engine || "";
@@ -114,7 +114,7 @@ export default async function Catalog({ searchParams }: TravelTrucksPageProps) {
   const equipment = searchParameters.equipment?.split(",") || [];
 
   const travelTrucksParams: GetTravelTucksParams = {
-    page,
+    page: 1,
     limit,
     location,
     form,
@@ -125,9 +125,7 @@ export default async function Catalog({ searchParams }: TravelTrucksPageProps) {
 
   await queryClient.prefetchQuery({
     queryKey: [
-      "campers",
-      page,
-      limit,
+      "campers-first-page",
       location,
       form,
       engine,
@@ -140,7 +138,7 @@ export default async function Catalog({ searchParams }: TravelTrucksPageProps) {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <FilteredTravelTrucksPage
-        page={page}
+        initialPage={page}
         limit={limit}
         location={location}
         form={form}

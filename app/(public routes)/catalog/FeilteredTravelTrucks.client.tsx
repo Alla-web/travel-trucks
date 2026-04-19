@@ -2,7 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import css from "./FeilteredTravelTrucks.client.module.css";
 
@@ -12,7 +13,7 @@ import { getTravelTrucks } from "@/lib/api/clientApi";
 import Loader from "@/components/Loader/Loader";
 
 interface FiteredTravelTrucksPageProps {
-  page: number;
+  initialPage: number;
   limit: number;
   location: string;
   form: string;
@@ -22,7 +23,7 @@ interface FiteredTravelTrucksPageProps {
 }
 
 export default function FiteredTravelTrucksPage({
-  page,
+  initialPage,
   limit,
   location,
   form,
@@ -34,70 +35,125 @@ export default function FiteredTravelTrucksPage({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const travelTrucksParams: GetTravelTucksParams = {
-    page,
-    limit,
-    location,
-    form,
-    engine,
-    transmission,
-    equipment,
-  };
+  // const travelTrucksParams: GetTravelTucksParams = {
+  //   page,
+  //   limit,
+  //   location,
+  //   form,
+  //   engine,
+  //   transmission,
+  //   equipment,
+  // };
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: [
-      "campers",
-      page,
-      limit,
-      location,
-      form,
-      engine,
-      transmission,
-      equipment,
-    ],
-    queryFn: () => getTravelTrucks(travelTrucksParams),
-    placeholderData: keepPreviousData,
-    staleTime: 1 * 60 * 1000,
-  });
+  // const { data, isLoading, isError, error } = useQuery({
+  //   queryKey: [
+  //     "campers",
+  //     page,
+  //     limit,
+  //     location,
+  //     form,
+  //     engine,
+  //     transmission,
+  //     equipment,
+  //   ],
+  //   queryFn: () => getTravelTrucks(travelTrucksParams),
+  //   placeholderData: keepPreviousData,
+  //   staleTime: 1 * 60 * 1000,
+  // });
 
-  const scrollRef = useRef<HTMLLIElement | null>(null);
-  const prevItemsLength = useRef(data?.items?.length || 0);
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: [
+        "campers",
+        limit,
+        location,
+        form,
+        engine,
+        transmission,
+        equipment,
+      ],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam }) => {
+        const params: GetTravelTucksParams = {
+          page: pageParam,
+          limit,
+          location,
+          form,
+          engine,
+          transmission,
+          equipment,
+        };
+
+        return getTravelTrucks(params);
+      },
+      getNextPageParam: (lastPage, allPages) => {
+        const total = Number(lastPage?.total ?? 0);
+        const loaded = allPages.reduce(
+          (sum, page) => sum + (page?.items?.length ?? 0),
+          0,
+        );
+        return loaded < total ? allPages.length + 1 : undefined;
+      },
+      staleTime: 60 * 1000,
+    });
+
+  const allItems = useMemo(() => {
+    return data?.pages.flatMap((page) => page.items ?? []) ?? [];
+  }, [data]);
 
   useEffect(() => {
-    if (data?.items && data.items.length > prevItemsLength.current) {
+    const loadToInitialPage = async () => {
+      if (!data) return;
+
+      const loadedPages = data.pages.length;
+
+      if (initialPage > loadedPages) {
+        for (let i = loadedPages; i < initialPage; i += 1) {
+          await fetchNextPage();
+        }
+      }
+    };
+
+    loadToInitialPage();
+  }, [initialPage, data, fetchNextPage]);
+
+  const scrollRef = useRef<HTMLLIElement | null>(null);
+  const prevItemsLength = useRef(allItems.length || 0);
+
+  useEffect(() => {
+    if (allItems.length > prevItemsLength.current) {
       scrollRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-    prevItemsLength.current = data?.items?.length || 0;
-  }, [data?.items]);
 
-  const handleLoadMore = () => {
+    prevItemsLength.current = allItems.length;
+  }, [allItems]);
+
+  const handleLoadMore = async () => {
+    if (!hasNextPage || isFetchingNextPage) return;
+
+    await fetchNextPage();
+
     const currentSearchParams = new URLSearchParams(searchParams.toString());
+    const nextPage = (Number(currentSearchParams.get("page")) || 1) + 1;
 
-    const currentLimit = Number(currentSearchParams.get("limit") ?? "4");
-    const step = 4;
-    const newLimit = currentLimit + step;
+    currentSearchParams.set("page", String(nextPage));
 
-    currentSearchParams.set("page", "1");
-    currentSearchParams.set("limit", String(newLimit));
-
-    router.push(`${pathname}?${currentSearchParams.toString()}`);
+    router.push(`${pathname}?${currentSearchParams.toString()}`, {
+      scroll: false,
+    });
   };
-
-  const total = Number(data?.total ?? 0);
-  const loaded = data?.items?.length ?? 0;
-  const hasMore = loaded < total;
 
   return (
     <section className={css.sectionContainer}>
-      {isLoading && <Loader />}
+      {isLoading || (isFetchingNextPage && <Loader />)}
 
       <ul className={css.travelTrucksList}>
         {!isLoading &&
-          data?.items?.map((travelTruck, index) => {
-            const isFirstNewItem = index === data.items.length - 4;
+          allItems.map((travelTruck, index) => {
+            const isFirstNewItem = index === allItems.length - 4;
 
             return (
               <li
@@ -110,13 +166,14 @@ export default function FiteredTravelTrucksPage({
           })}
       </ul>
 
-      {!isLoading && hasMore && (
+      {hasNextPage && (
         <button
           onClick={handleLoadMore}
           className={css.loadMoreBtn}
           type="button"
+          disabled={isFetchingNextPage}
         >
-          {isLoading ? "Loading..." : "Load more"}
+          {isFetchingNextPage ? "Loading..." : "Load more"}
         </button>
       )}
     </section>

@@ -49,6 +49,7 @@ export interface TravelTruckFilters {
 }
 
 export interface GetTravelTucksParams {
+  initialPage?: number;
   page?: number;
   limit?: number;
   location?: string;
