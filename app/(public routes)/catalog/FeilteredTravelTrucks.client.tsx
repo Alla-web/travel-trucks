@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 
 import css from "./FeilteredTravelTrucks.client.module.css";
 
@@ -59,6 +60,19 @@ export default function FiteredTravelTrucksPage({
     staleTime: 1 * 60 * 1000,
   });
 
+  const scrollRef = useRef<HTMLLIElement | null>(null);
+  const prevItemsLength = useRef(data?.items?.length || 0);
+
+  useEffect(() => {
+    if (data?.items && data.items.length > prevItemsLength.current) {
+      scrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    prevItemsLength.current = data?.items?.length || 0;
+  }, [data?.items]);
+
   const handleLoadMore = () => {
     const currentSearchParams = new URLSearchParams(searchParams.toString());
 
@@ -82,11 +96,15 @@ export default function FiteredTravelTrucksPage({
 
       <ul className={css.travelTrucksList}>
         {!isLoading &&
-          data?.items?.map((travelTruck) => (
-            <li key={travelTruck.id}>
-              <TravelTruckCard travelTruck={travelTruck} />
-            </li>
-          ))}
+          data?.items?.map((travelTruck, index) => {
+            const isFirstNewItem = index === data.items.length - 4;
+
+            return (
+              <li key={travelTruck.id} ref={isFirstNewItem ? scrollRef : null}>
+                <TravelTruckCard travelTruck={travelTruck} />
+              </li>
+            );
+          })}
       </ul>
 
       {!isLoading && hasMore && (
