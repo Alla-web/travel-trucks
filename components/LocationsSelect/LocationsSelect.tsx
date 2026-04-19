@@ -7,29 +7,30 @@ import css from "./LocationsSelect.module.css";
 interface LocationsSelectProps {
   locationsList: string[];
   onChange: (location: string) => void;
+  value: string;
 }
 
 export default function LocationsSelect({
   locationsList,
   onChange,
+  value,
 }: LocationsSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
-  const displayValue = selected || locationsList[0] || "Оберіть локацію";
+  const displayValue =
+    value || selected || locationsList[0] || "Оберіть локацію";
+  const isAnyLocationSelected = value !== "";
 
   const handleClick = (location: string) => {
     if (location === "Україна") {
-      setSelected(null);
       onChange("");
     } else {
-      setSelected(location);
       onChange(location);
     }
+
     setIsOpen(false);
   };
-
-  const isAnyLocationSelected = selected !== null && selected !== "";
 
   return (
     <div className={css.selectWrapper}>

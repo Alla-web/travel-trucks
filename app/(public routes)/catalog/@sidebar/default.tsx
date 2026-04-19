@@ -110,6 +110,7 @@ export default function SideBarTravelTrucks() {
         <div className={css.iconSelectContainer}>
           <LocationsSelect
             locationsList={locationsList}
+            value={filters.location}
             onChange={handleLocationChange}
           />
         </div>
