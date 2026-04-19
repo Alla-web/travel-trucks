@@ -100,7 +100,10 @@ export default function FiteredTravelTrucksPage({
             const isFirstNewItem = index === data.items.length - 4;
 
             return (
-              <li key={travelTruck.id} ref={isFirstNewItem ? scrollRef : null}>
+              <li
+                key={`${travelTruck.id}-${index}`}
+                ref={isFirstNewItem ? scrollRef : null}
+              >
                 <TravelTruckCard travelTruck={travelTruck} />
               </li>
             );

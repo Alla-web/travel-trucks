@@ -1,15 +1,14 @@
 export interface CreateTravelTruckBookingForm {
-  username: string;
+  name: string;
   email: string;
   bookingDate: Date | null;
   comment: string;
 }
 
 export interface BookingPayload {
-  camperId: string;
-  username: string;
+  name: string;
   email: string;
-  bookingDate: string | null;
+  bookingDate: string | Date | null;
   comment: string;
 }
 

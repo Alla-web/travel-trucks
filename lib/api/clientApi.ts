@@ -19,9 +19,16 @@ export async function getTraveltruckById(id: string) {
   return response.data;
 }
 
-export async function createBooking(payload: BookingPayload): Promise<Booking> {
-  const response = await nextServer.post<Booking>("/bookings", payload, {
-    withCredentials: false,
-  });
+export async function createBooking(
+  id: string,
+  payload: BookingPayload,
+): Promise<Booking> {
+  const response = await nextServer.post<Booking>(
+    `/campers/${id}/booking-requests`,
+    payload,
+    {
+      withCredentials: false,
+    },
+  );
   return response.data;
 }

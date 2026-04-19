@@ -26,14 +26,14 @@ interface BookTravelTruckFormProps {
 }
 
 const bookingInitialValues: CreateTravelTruckBookingForm = {
-  username: "",
+  name: "",
   email: "",
   bookingDate: null,
   comment: "",
 };
 
 const bookingSchema = Yup.object().shape({
-  username: Yup.string().required("Username is required"),
+  name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   bookingDate: Yup.date()
     .nullable()
@@ -65,9 +65,7 @@ function DateField({ name }: any) {
   );
 }
 
-export default function BookTravelTruckForm({
-  id: camperId,
-}: BookTravelTruckFormProps) {
+export default function BookTravelTruckForm({ id }: BookTravelTruckFormProps) {
   const handleSubmit = async (
     values: CreateTravelTruckBookingForm,
     actions: FormikHelpers<CreateTravelTruckBookingForm>,
@@ -76,16 +74,15 @@ export default function BookTravelTruckForm({
       actions.setStatus(null);
 
       const payload: BookingPayload = {
-        camperId,
-        username: values.username.trim(),
+        name: values.name.trim(),
         email: values.email.trim(),
         bookingDate: values.bookingDate
-          ? values.bookingDate.toISOString()
+          ? values.bookingDate.toISOString().split("T")[0]
           : null,
         comment: values.comment.trim(),
       };
 
-      const response = await createBooking(payload);
+      const response = await createBooking(id, payload);
       if (response) toast.success("Booking was successfully created");
 
       actions.resetForm();
@@ -125,14 +122,10 @@ export default function BookTravelTruckForm({
               <Field
                 className={css.formFields}
                 type="text"
-                name="username"
+                name="name"
                 placeholder="Name*"
               />
-              <ErrorMessage
-                name="username"
-                component="p"
-                className={css.error}
-              />
+              <ErrorMessage name="name" component="p" className={css.error} />
             </div>
             <div>
               <Field

@@ -1,20 +1,24 @@
 import { NextResponse } from "next/server";
 
-import { api, ApiError } from "../api";
+import { api, ApiError } from "../.././../api";
 
-export async function POST(request: Request) {
+interface Params {
+  params: Promise<{ id: string }>;
+}
+
+export async function POST(request: Request, { params }: Params) {
   try {
+    const { id } = await params;
     const body = await request.json();
 
     const payload = {
-      camperId: body.camperId,
-      username: body.username,
+      name: body.username,
       email: body.email,
       bookingDate: body.bookingDate,
       comment: body.comment,
     };
 
-    const apiRes = await api.post("/bookings", payload);
+    const apiRes = await api.post(`/campers/${id}/booking-requests`, payload);
 
     const res = NextResponse.json(apiRes.data, { status: 201 });
     return res;
