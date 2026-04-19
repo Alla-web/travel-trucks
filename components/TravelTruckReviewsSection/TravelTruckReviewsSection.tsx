@@ -1,6 +1,7 @@
 import css from "./TravelTruckReviewsSection.module.css";
 
 import { TravelTruck } from "@/types/travelTruck";
+import RatingStars from "../RatingStars/RatingStars";
 
 interface TravelTruckReviewsSectionProps {
   travelTruck: TravelTruck;
@@ -20,7 +21,7 @@ export default function TravelTruckReviewsSection({
               </p>
               <div className={css.nameRatingWrapper}>
                 <h2 className={css.reviewersName}>{review.reviewer_name}</h2>
-                <div>{review.reviewer_rating}</div>
+                <div>{<RatingStars rating={review.reviewer_rating} />}</div>
               </div>
             </div>
 

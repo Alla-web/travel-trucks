@@ -120,9 +120,12 @@
 .featureReviewsToggleBtns {
   width: fit-content;
   height: 100%;
+  border-bottom: 5px solid transparent;
+  transition: border-color 0.3s ease;
 }
 
 .featureReviewsToggleBtns:hover,
-.featureReviewsToggleBtns:focus {
+.featureReviewsToggleBtns:focus,
+.activeTab {
   border-bottom: 5px solid var(--buttons-background);
 }

@@ -54,7 +54,7 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
               <p className={css.locationText}>{travelTruck.location}</p>
             </div>
           </div>
-          <p className={css.price}>€ {travelTruck.price.toFixed(2)}</p>
+          <p className={css.price}>€{travelTruck.price.toFixed(2)}</p>
           <div className={css.photoContainer}>
             {travelTruck.gallery.map((item, index) => (
               <div key={item.thumb} className={css.imageConatiner}>
@@ -78,13 +78,13 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
           <div className={css.sectionTitles}>
             <button
               onClick={() => setIsActiveTab("features")}
-              className={css.featureReviewsToggleBtns}
+              className={`${css.featureReviewsToggleBtns} ${isActiveTab === "features" ? css.activeTab : ""}`}
             >
               Features
             </button>
             <button
               onClick={() => setIsActiveTab("reviews")}
-              className={css.featureReviewsToggleBtns}
+              className={`${css.featureReviewsToggleBtns} ${isActiveTab === "reviews" ? css.activeTab : ""}`}
             >
               Reviews
             </button>

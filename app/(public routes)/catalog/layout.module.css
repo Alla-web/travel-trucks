@@ -1,6 +1,7 @@
 .sectionContainer {
   margin-top: 80px;
   display: flex;
+  flex-direction: row;
   gap: 64px;
   align-items: flex-start;
 }
@@ -13,8 +14,6 @@
 }
 
 .travelTrucksContainer {
-  margin-top: 48px;
-  margin-bottom: 48px;
   flex: 1;
   min-width: 0;
 

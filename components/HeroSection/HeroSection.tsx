@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+
 import css from "./HeroSection.module.css";
 
 export default function HeroSection() {
@@ -8,6 +10,14 @@ export default function HeroSection() {
     <div className={css.sectionContainer}>
       <div className="container">
         <section className={css.heroSectionInner}>
+          <Image
+            src="/hero/hero-image-2x.webp"
+            alt="Hero Background"
+            fill
+            priority
+            className={css.bgImage}
+            style={{ objectFit: "cover", zIndex: -1 }}
+          />
           <h1 className={css.mainTitle}>Campers of your dreams</h1>
           <h2 className={css.subTitile}>
             You can find everything you want in our catalog

@@ -63,7 +63,13 @@ export interface GetTravelTruckResponse {
   items: TravelTruck[];
 }
 
-export function capitalizer(word: string) {
-  if (!word) return;
-  return word[0].toUpperCase() + word.slice(1);
+export function capitalizer(string: string) {
+  if (!string) return;
+
+  const spacedWord = string
+    .replace(/([A-Z])/g, " $1")
+    .toLowerCase()
+    .trim();
+
+  return spacedWord.charAt(0).toUpperCase() + spacedWord.slice(1);
 }

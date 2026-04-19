@@ -31,7 +31,7 @@ export default function TravelTruckCard({ travelTruck }: TravelTruckCardProps) {
         <div className={css.namePriceContainer}>
           <p className={css.travelTruckName}>{travelTruck.name}</p>
           <div className={css.priceIconContainer}>
-            <p>€ {travelTruck.price.toFixed(2)}</p>
+            <p>€{travelTruck.price.toFixed(2)}</p>
             <svg className={css.heardIicon}>
               <use href="/iconsprite.svg#heard-black" />
             </svg>

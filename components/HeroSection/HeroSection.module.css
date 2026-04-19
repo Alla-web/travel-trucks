@@ -1,6 +1,8 @@
 .sectionContainer {
   min-height: 696px;
 
+  background-color: var(--text-sub-color);
+
   background-image: image-set(
     url("/hero/hero-image-1x.webp") 1x,
     url("/hero/hero-image-2x.webp") 2x
@@ -44,4 +46,8 @@
   padding: 16px 60px;
   width: fit-content;
   height: 56px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
