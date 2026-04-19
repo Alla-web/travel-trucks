@@ -1,0 +1,77 @@
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectHeader {
+  width: 100%;
+  height: 56px;
+  background-color: var(--header-background);
+  font-size: 16px;
+  color: var(--text-main-color);
+  border-radius: 12px;
+  padding: 0 18px 0 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.mapIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 20px;
+  height: 20px;
+
+  pointer-events: none;
+}
+
+.arrowDownIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 26px;
+  height: 26px;
+
+  pointer-events: none;
+}
+
+.optionsList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+
+  width: 100%;
+  background: white;
+  border: 1px solid #f2f4f7;
+  border-radius: 12px;
+  box-shadow: 0px 4px 36px rgba(0, 0, 0, 0.1);
+  padding: 10px 18px;
+  z-index: 100;
+}
+
+.option {
+  color: #101828;
+  font-size: 16px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.option:hover,
+.option:focus {
+  color: var(--buttons-background) !important;
+}
+
+.activeOption {
+  color: var(--buttons-background) !important;
+}
+
+.selectedText {
+  color: var(--buttons-background) !important;
+}

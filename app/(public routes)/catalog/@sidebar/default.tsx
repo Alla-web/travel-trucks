@@ -9,6 +9,7 @@ import { getTravelTrucks } from "@/lib/api/clientApi";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { GetTravelTucksParams } from "@/types/travelTruck";
 import { TravelTruckFilters } from "@/types/travelTruck";
+import LocationsSelect from "@/components/LocationsSelect/LocationsSelect";
 
 export default function SideBarTravelTrucks() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export default function SideBarTravelTrucks() {
     equipment: [],
   });
 
-  //список всех кемперов для віборки локаций
+  //список всіх кемперів для вибірки локацій
   const getTravelTrucksParams: GetTravelTucksParams = {
     location: "",
     form: "",
@@ -39,18 +40,20 @@ export default function SideBarTravelTrucks() {
     staleTime: 1 * 60 * 1000,
   });
 
-  const locationsList: string[] =
-    data?.items.reduce((locations, item) => {
+  const locationsList: string[] = [
+    "Україна",
+    ...(data?.items.reduce((locations, item) => {
       if (!locations.includes(item.location)) {
         locations.push(item.location);
       }
       return locations;
-    }, [] as string[]) || [];
+    }, [] as string[]) || []),
+  ];
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleLocationChange = (location: string) => {
     setFilters((prevValue) => ({
-      ...filters,
-      location: event.target.value,
+      ...prevValue,
+      location: location,
     }));
   };
 
@@ -92,11 +95,11 @@ export default function SideBarTravelTrucks() {
       <div className={css.locationContainer}>
         <p className={css.locationTitle}>Location</p>
         <div className={css.iconSelectContainer}>
-          <svg className={css.mapIcon}>
+          {/* <svg className={css.mapIcon}>
             <use href="/iconsprite.svg#map-black" />
-          </svg>
+          </svg> */}
 
-          <select
+          {/* <select
             value={filters.location}
             onChange={handleSelectChange}
             className={css.locationSelect}
@@ -107,11 +110,16 @@ export default function SideBarTravelTrucks() {
                 {location}
               </option>
             ))}
-          </select>
+          </select> */}
 
-          <svg className={css.arrowDownIcon}>
+          <LocationsSelect
+            locationsList={locationsList}
+            onChange={handleLocationChange}
+          />
+
+          {/* <svg className={css.arrowDownIcon}>
             <use href="/iconsprite.svg#keyboard_arrow_down" />
-          </svg>
+          </svg> */}
         </div>
         <p className={css.filtersText}>Filters</p>
 
