@@ -157,7 +157,9 @@ export default function SideBarTravelTrucks() {
             <svg className={css.filterBtnIcons}>
               <use href="/iconsprite.svg#grid-2x2" />
             </svg>{" "}
-            <span className={css.filterBtnText}>Fully integrated</span>
+            <span className={`${css.filterBtnText} ${css.fullyIntegrated}`}>
+              Fully integrated
+            </span>
           </button>
         </div>
 
@@ -171,9 +173,9 @@ export default function SideBarTravelTrucks() {
             data-group="engine"
             data-value="diesel"
           >
-            {/* <svg className={css.filterBtnIcons}>
-              <use href="/iconsprite.svg#diagram" />
-            </svg>{" "} */}
+            <svg className={css.filterBtnIcons}>
+              <use href="/iconsprite.svg#fuel-pump" />
+            </svg>{" "}
             <span className={css.filterBtnText}>Diesel</span>
           </button>
 
@@ -183,9 +185,9 @@ export default function SideBarTravelTrucks() {
             data-group="engine"
             data-value="petrol"
           >
-            {/* <svg className={css.filterBtnIcons}>
-              <use href="/iconsprite.svg#diagram" />
-            </svg>{" "} */}
+            <svg className={css.filterBtnIcons}>
+              <use href="/iconsprite.svg#fuel-pump" />
+            </svg>{" "}
             <span className={css.filterBtnText}>Petrol</span>
           </button>
 
@@ -195,9 +197,9 @@ export default function SideBarTravelTrucks() {
             data-group="engine"
             data-value="hybrid"
           >
-            {/* <svg className={css.filterBtnIcons}>
-              <use href="/iconsprite.svg#diagram" />
-            </svg>{" "} */}
+            <svg className={css.filterBtnIcons}>
+              <use href="/iconsprite.svg#fuel-pump" />
+            </svg>{" "}
             <span className={css.filterBtnText}>Hybrid</span>
           </button>
         </div>

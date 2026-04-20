@@ -140,6 +140,10 @@
   box-sizing: border-box;
 }
 
+.fullyIntegrated {
+  line-height: 1;
+}
+
 .activeFilterButton {
   border: 1px solid var(--buttons-background);
 }
@@ -198,6 +202,7 @@
 .resetBtn {
   background-color: #fff;
   color: var(--text-main-color);
+  border: 1px solid #dadde1;
   border: 1px solid #dadde1;
 }
 
