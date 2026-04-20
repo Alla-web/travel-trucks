@@ -41,14 +41,13 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
 
   margin-bottom: 8px;
 }
 
 .priceIconContainer {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 13px;
 
   align-self: flex-start;
