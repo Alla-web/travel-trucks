@@ -148,20 +148,19 @@ export default function FiteredTravelTrucksPage({
 
   return (
     <section className={css.sectionContainer}>
-      {isLoading || (isFetchingNextPage && <Loader />)}
+      {(isLoading || isFetchingNextPage) && <Loader />}
 
       <ul className={css.travelTrucksList}>
         {!isLoading &&
           allItems.map((travelTruck, index) => {
-            const isFirstNewItem = index === allItems.length - 4;
+            const isFirstNewItem = index === allItems.length - limit;
 
             return (
-              <li
-                key={`${travelTruck.id}-${index}`}
+              <TravelTruckCard
                 ref={isFirstNewItem ? scrollRef : null}
-              >
-                <TravelTruckCard travelTruck={travelTruck} />
-              </li>
+                key={`${travelTruck.id}-${index}`}
+                travelTruck={travelTruck}
+              />
             );
           })}
       </ul>
