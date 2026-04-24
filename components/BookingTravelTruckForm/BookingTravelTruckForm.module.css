@@ -258,6 +258,7 @@
 
 .formikForm textarea {
   height: 118px;
+  resize: none;
 }
 
 .error {

@@ -70,6 +70,7 @@ export default function GallerySwiperOrigin({ images }: GallerySwiperProps) {
                 src={item}
                 alt="TravelTruck photo"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className={css.image}
               />
             </div>

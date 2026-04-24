@@ -24,11 +24,13 @@ interface GenerateMetadataProps {
 export async function generateMetadata({
   searchParams,
 }: GenerateMetadataProps): Promise<Metadata> {
-  const page = Number(searchParams.page) || 1;
-  const location = searchParams.location || "Європа";
-  const form = searchParams.form || "всі типи";
-  const engine = searchParams.engine || "";
-  const transmission = searchParams.transmission || "";
+  const params = await searchParams;
+
+  const page = Number(params.page) || 1;
+  const location = params.location || "Європа";
+  const form = params.form || "всі типи";
+  const engine = params.engine || "";
+  const transmission = params.transmission || "";
 
   const filters = [
     location && `локація: ${location}`,
