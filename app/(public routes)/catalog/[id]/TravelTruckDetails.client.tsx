@@ -60,10 +60,11 @@ export default function TravelTruckDetails({ id }: TravelTruckDetailsProps) {
           </div>
           <p className={css.price}>€{travelTruck.price.toFixed(2)}</p>
           <div className={css.photoContainer}>
-            {/* {galleryOroginal && (
+            {galleryOroginal && (
               <GallerySwiperOrigin images={galleryOroginal} />
-            )} */}
-            {galleryOroginal && <GallerySwiper images={galleryOroginal} />}
+            )}
+
+            {/* {galleryOroginal && <GallerySwiper images={galleryOroginal} />} */}
           </div>
           <p className={css.description}>{travelTruck.description}</p>
           <div className={css.sectionTitles}>

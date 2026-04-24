@@ -3,7 +3,7 @@
 }
 
 .mainSwiper {
-  height: 412px; /* Висота головного фото */
+  height: 560px; /* Висота головного фото */
   border-radius: 20px;
   margin-bottom: 10px;
 
@@ -11,7 +11,7 @@
 }
 
 .thumbsSwiper {
-  height: 100px; /* Висота маленьких фото */
+  height: 160px; /* Висота маленьких фото */
   box-sizing: border-box;
   padding: 10px 0;
 }
