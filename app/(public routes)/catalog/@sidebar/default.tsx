@@ -10,6 +10,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { GetTravelTucksParams } from "@/types/travelTruck";
 import { TravelTruckFilters } from "@/types/travelTruck";
 import LocationsSelect from "@/components/LocationsSelect/LocationsSelect";
+import Loader from "@/components/Loader/Loader";
 
 export default function SideBarTravelTrucks() {
   const router = useRouter();
@@ -32,7 +33,7 @@ export default function SideBarTravelTrucks() {
     equipment: [],
   };
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isFetching, isError, error } = useQuery({
     queryKey: ["campers"],
     queryFn: () => getTravelTrucks(getTravelTrucksParams),
     placeholderData: keepPreviousData,
@@ -108,6 +109,8 @@ export default function SideBarTravelTrucks() {
       <div className={css.locationContainer}>
         <p className={css.locationTitle}>Location</p>
         <div className={css.iconSelectContainer}>
+          {(isLoading || isFetching) && <Loader />}
+
           <LocationsSelect
             locationsList={locationsList}
             value={filters.location}
